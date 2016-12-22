@@ -1,0 +1,25 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Common -->
+    <dimen name="common_button_width">88dp</dimen>
+    <dimen name="common_button_height">36dp</dimen>
+    <dimen name="common_text_size_large">24sp</dimen>
+    <dimen name="common_text_size_middle">16sp</dimen>
+    <dimen name="common_margin_short">4dp</dimen>
+    <dimen name="common_margin_middle">8dp</dimen>
+    <dimen name="common_margin_long">16dp</dimen>
+    <!-- Point activity -->
+    <dimen name="point_button_size">0.196in</dimen>
+    <dimen name="base_radius">0.196in</dimen>
+    <!-- Swipe activity -->
+    <dimen name="swipe_button_size">0.196in</dimen>
+    <dimen name="base_scale">0.196in</dimen>
+    <!-- Slide noti activity -->
+    <dimen name="noti_bar_height">0.196in</dimen>
+    <dimen name="noti_bar_shadow">4dp</dimen>
+    <dimen name="noti_bar_option_button_size">40dp</dimen>
+    <!-- Main activity -->
+    <dimen name="radio_button_size">24dp</dimen>
+</resources>

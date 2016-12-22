@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+
+    <style name="FieldTypo">
+        <item name="android:textSize">@dimen/common_text_size_middle</item>
+        <item name="android:textColor">@color/background_quinary</item>
+    </style>
+
+    <style name="InstructionTypo">
+        <item name="android:textSize">@dimen/common_text_size_large</item>
+        <item name="android:textColor">@color/background_quinary</item>
+    </style>
+
+    <style name="ButtonTypo">
+        <item name="android:textColor">@color/background_primary</item>
+        <item name="android:textSize">@dimen/common_text_size_middle</item>
+    </style>
+
+</resources>
