@@ -29,6 +29,10 @@ public class PointManager {
     Collections.shuffle(positions);
   }
 
+  public int getCount() {
+    return count;
+  }
+
   public void increaseCount() {
     count++;
   }

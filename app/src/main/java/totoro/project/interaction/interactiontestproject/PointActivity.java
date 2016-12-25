@@ -1,5 +1,6 @@
 package totoro.project.interaction.interactiontestproject;
 
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +9,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import java.util.Date;
+
+import totoro.project.interaction.interactiontestproject.csv.CsvManager;
 import totoro.project.interaction.interactiontestproject.databinding.PointActivityBinding;
 import totoro.project.interaction.interactiontestproject.point.PointManager;
 
@@ -23,11 +27,16 @@ public class PointActivity extends AppCompatActivity implements
 
   private Pair<Integer, Integer> screenSize;
 
-  private PointManager manager;
+  private PointManager pointManager;
+  private CsvManager csvManager = new CsvManager();
   private int testBasePointX = 300;
   private int testBasePointY = 400;
   private double testBaseDegree = 22.5;
   private int testMaxCount = 50;
+
+  private final String[] csvColumns = new String[] {
+      "번호", "버튼 누른 지점 x", "버튼 누른 지점 y", "나타난 버튼 위치 x", "나타난 버튼 위치 y", "버튼 터치 성공 여부",
+  };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +61,7 @@ public class PointActivity extends AppCompatActivity implements
   }
 
   private void initViews() {
-    manager = new PointManager(
+    pointManager = new PointManager(
         testBasePointX, testBasePointY, getResources().getDimensionPixelSize(R.dimen.base_radius),
         testBaseDegree, screenSize.first, screenSize.second,
         getResources().getDimensionPixelSize(R.dimen.point_button_size), testMaxCount);
@@ -60,7 +69,7 @@ public class PointActivity extends AppCompatActivity implements
     changePosition(
         binding.baseButtonLayout, testBasePointX, testBasePointY);
     // Set start position of target button.
-    Pair<Integer, Integer> firstTargetPosition = manager.getCurrentPoint();
+    Pair<Integer, Integer> firstTargetPosition = pointManager.getCurrentPoint();
     changePosition(
         binding.targetButtonLayout, firstTargetPosition.first, firstTargetPosition.second);
 
@@ -70,6 +79,21 @@ public class PointActivity extends AppCompatActivity implements
 
     binding.baseButtonLayout.setVisibility(GONE);
     binding.targetButtonLayout.setVisibility(GONE);
+
+    validateCsvManager(getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE));
+  }
+
+  private void validateCsvManager(SharedPreferences sharedPreferences) {
+    String name = sharedPreferences.getString(KeyMap.SHARED_PREFERENCES_NAME, "");
+    String deviceNumber = sharedPreferences.getString(KeyMap.SHARED_PREFERENCES_DEVICE_NUMBER, "");
+    String postureType = sharedPreferences.getString(KeyMap.SHARED_PREFERENCES_POSTURE_TYPE, MainActivity.PostureType.UNKNOWN.name());
+    String handType = sharedPreferences.getString(KeyMap.SHARED_PREFERENCES_HAND_TYPE, MainActivity.HandType.UNKNOWN.name());
+    String testType = sharedPreferences.getString(KeyMap.SHARED_PREFERENCES_TEST_TYPE, MainActivity.TestType.UNKNOWN.name());
+    csvManager.createCsvWriter(
+        getApplicationContext(),
+        new String[] { testType },
+        String.format("%s_%s_%s_%s_%s.csv", name, deviceNumber, handType, postureType, new Date().getTime()),
+        csvColumns);
   }
 
   @Override
@@ -78,8 +102,10 @@ public class PointActivity extends AppCompatActivity implements
     int y = (int) event.getY();
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
-        // TODO(totoro): CSV에 오류를 입력해야함.
+        // CSV에 오류를 입력.
         System.out.println("Touched " + x + ", " + y);
+        Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+        writeCsv(pointManager.getCount(), x, y, buttonPosition.first, buttonPosition.second, false);
       case MotionEvent.ACTION_MOVE:
       case MotionEvent.ACTION_UP:
     }
@@ -109,7 +135,7 @@ public class PointActivity extends AppCompatActivity implements
     if (view.getId() != R.id.next_button) {
       throw new RuntimeException("Invalid click view: " + view.toString());
     }
-    if (manager.getCurrentPoint() != null) {
+    if (pointManager.getCurrentPoint() != null) {
       // Start test.
       startTest();
       return;
@@ -128,11 +154,16 @@ public class PointActivity extends AppCompatActivity implements
     Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
         binding.baseButtonLayout, nestPosition);
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
-    // TODO(totoro): CSV에 성공여부를 입력해야함.
-    manager.increaseCount();
-    Pair<Integer, Integer> point = manager.getCurrentPoint();
+    // CSV에 성공여부를 입력.
+    Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+    writeCsv(
+        pointManager.getCount(), measuredPosition.first, measuredPosition.second,
+        buttonPosition.first, buttonPosition.second, true);
+
+    pointManager.increaseCount();
+    Pair<Integer, Integer> point = pointManager.getCurrentPoint();
     if (point == null) {
-      // TODO(totoro): 실험 끝 페이지로 넘어가야함.
+      // 실험 끝 페이지로 넘어가기.
       setFinishTest();
       return;
     }
@@ -144,11 +175,16 @@ public class PointActivity extends AppCompatActivity implements
     Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
         binding.targetButtonLayout, nestPosition);
     System.out.println("Target button click: " + measuredPosition.first + ", " + measuredPosition.second);
-    // TODO(totoro): CSV에 성공여부를 입력해야함.
-    manager.increaseCount();
-    Pair<Integer, Integer> point = manager.getCurrentPoint();
+    // CSV에 성공여부를 입력.
+    Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+    writeCsv(
+        pointManager.getCount(), measuredPosition.first, measuredPosition.second,
+        buttonPosition.first, buttonPosition.second, true);
+
+    pointManager.increaseCount();
+    Pair<Integer, Integer> point = pointManager.getCurrentPoint();
     if (point == null) {
-      // TODO(totoro): 실험 끝 페이지로 넘어가야함.
+      // 실험 끝 페이지로 넘어가기.
       setFinishTest();
       return;
     }
@@ -163,5 +199,23 @@ public class PointActivity extends AppCompatActivity implements
     binding.instructionLayout.setVisibility(VISIBLE);
     binding.instruction.setText(R.string.end_instruction);
     binding.nextButton.setText(R.string.back_button);
+
+    csvManager.clear();
+  }
+
+  private Pair<Integer, Integer> getCurrentShowButtonPosition() {
+    // 타겟버튼
+    if (pointManager.getCount() % 2 == 1) {
+      return pointManager.getCurrentPoint();
+    }
+    return Pair.create(testBasePointX, testBasePointY);
+  }
+
+  private void writeCsv(int count, int inputX, int inputY, int buttonX, int buttonY,
+                        boolean isSuccess) {
+    csvManager.write(new String[] {
+        String.valueOf(count), String.valueOf(inputX), String.valueOf(inputY),
+        String.valueOf(buttonX), String.valueOf(buttonY), isSuccess ? "success" : "fail",
+    });
   }
 }
