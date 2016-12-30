@@ -87,7 +87,7 @@ public class SlideNotiActivity extends AppCompatActivity implements
       case R.id.main_layout:
         return handleClickDragNotiBar(event);
       case R.id.noti_bar:
-        return handleClickNotiBar(event);
+        return false;
       case R.id.wifi_button:
         return handleClickWifiButton(event);
       default:
@@ -103,12 +103,7 @@ public class SlideNotiActivity extends AppCompatActivity implements
       case MotionEvent.ACTION_DOWN:
         // Fall through.
       case MotionEvent.ACTION_MOVE:
-        if (notibarClickedState) {
-          // Success case.
-          // TODO(totoro): CSV에 성공 기록을 남겨야 함.
-          System.out.println("drag notibar success: " + position.first + ", " + position.second);
-          notibarClickedState = false;
-        } else if (panelState == SlidingUpPanelLayout.PanelState.DRAGGING) {
+        if (panelState == SlidingUpPanelLayout.PanelState.DRAGGING) {
           // Success case.
           // TODO(totoro): CSV에 성공 기록을 남겨야 함.
           System.out.println("drag notibar success: " + position.first + ", " + position.second);
@@ -117,24 +112,6 @@ public class SlideNotiActivity extends AppCompatActivity implements
           System.out.println("failed notibar position: " + position.first + ", " + position.second);
           System.out.println("Panel state: " + panelState.name());
         }
-    }
-    return false;
-  }
-
-  private boolean handleClickNotiBar(MotionEvent event) {
-    notibarClickedState = true;
-    Pair<Integer, Integer> position = CommonUtil.getMeasuredPosition(
-        binding.notiBar, Pair.create((int) event.getX(), (int) event.getY()));
-
-    switch (event.getAction()) {
-      case MotionEvent.ACTION_UP:
-        // TODO(totoro): CSV에 성공 기록을 남겨야 함.
-        System.out.println("click notibar success: " + position.first + ", " + position.second);
-        break;
-      case MotionEvent.ACTION_MOVE:
-        // TODO(totoro): CSV에 실패 기록을 남겨야 함.
-        System.out.println("click notibar failed: " + position.first + ", " + position.second);
-        break;
     }
     return false;
   }

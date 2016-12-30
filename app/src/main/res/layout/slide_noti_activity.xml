@@ -53,7 +53,7 @@
             android:layout_height="match_parent"
             android:gravity="bottom"
             app:umanoPanelHeight="@dimen/noti_bar_height"
-            app:umanoShadowHeight="@dimen/noti_bar_shadow">
+            app:umanoShadowHeight="0dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.4"
-                android:background="@color/background_secondary"
+                android:background="@color/background_primary"
                 android:orientation="vertical">
 
                 <ImageView

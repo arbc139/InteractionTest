@@ -1,14 +1,25 @@
 package totoro.project.interaction.interactiontestproject.common;
 
+import android.util.DisplayMetrics;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CommonUtil {
 
   public static Pair<Integer, Integer> toCenterPosition(Pair<Integer, Integer> position,
                                                         int buttonSize) {
     return Pair.create(position.first + buttonSize / 2, position.second + buttonSize / 2);
+  }
+  
+  public static Pair<Integer, Integer> toOriginalPosition(Pair<Integer, Integer> centerPosition,
+                                                          int buttonSize) {
+    return Pair.create(
+        centerPosition.first - buttonSize / 2, centerPosition.second - buttonSize / 2);
   }
 
   @Deprecated
@@ -54,5 +65,23 @@ public class CommonUtil {
       return view.getTop();
     else
       return view.getTop() + getRecursiveTop((View) view.getParent());
+  }
+
+  public static double getDistance(Pair<Integer, Integer> positionA, Pair<Integer, Integer> positionB) {
+    return Math.sqrt(
+        Math.pow(positionA.first - positionB.first, 2) + Math.pow(positionA.second - positionB.second, 2));
+  }
+
+  public static float toPixel(float millimeter, DisplayMetrics metrics) {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, millimeter, metrics);
+  }
+
+  public static float toMillimeter(float pixel, DisplayMetrics metrics) {
+    return pixel / TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, 1, metrics);
+  }
+
+  public static String formattedDate(Date date) {
+    SimpleDateFormat formatter = new SimpleDateFormat("(yyyy년_MM월_dd일_hh:mm:ss)");
+    return formatter.format(date);
   }
 }

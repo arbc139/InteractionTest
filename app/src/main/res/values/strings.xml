@@ -2,8 +2,12 @@
     <string name="app_name">InteractionTestProject</string>
     <!-- Common -->
     <string name="next_step_button">다음</string>
+    <string name="save_button">저장</string>
+    <string name="setting_button">설정</string>
     <string name="back_button">돌아가기</string>
     <string name="end_instruction">종료되었습니다.</string>
+    <string name="incomplete_input_error">선택하지 않은 옵션이 있습니다.</string>
+    <string name="non_integer_error">숫자를 입력해주세요.</string>
     <!-- Main -->
     <string name="name">이름</string>
     <string name="device_number">기기번호</string>
@@ -21,11 +25,22 @@
     <string name="test_type_c">C</string>
     <string name="test_type_d">D</string>
     <string name="test_type_e">E</string>
-    <string name="incomplete_input_error">선택하지 않은 옵션이 있습니다.</string>
+    <!-- Setting -->
+    <string name="setting_screen_hide_height">가릴 영역 높이 (mm)</string>
+    <string name="setting_a_base_x">홈버튼 X</string>
+    <string name="setting_a_base_y">홈버튼 Y</string>
+    <string name="setting_a_button_size">버튼 사이즈 (mm)</string>
+    <string name="setting_a_button_radius">버튼 사이의 간격 (mm)</string>
+    <string name="setting_a_button_degree">각도 (°)</string>
+    <string name="setting_a_test_count">테스트 횟수</string>
     <!-- A -->
     <string name="test_a_instruction">A 과제\n다음 화면에 나타나는 원형의 버튼을 터치해주세요.</string>
+    <!-- B -->
     <string name="test_b_instruction">B 과제\n다음 화면에 나타나는 원형의 버튼을 목적지까지 이동시켜주세요.</string>
+    <!-- C -->
     <string name="test_c_instruction">C 과제\n다음 화면에 나타나는 원형의 버튼을 목적지까지 이동시켜주세요.</string>
+    <!-- D -->
     <string name="test_d_instruction">D 과제\n다음 화면에 나타나는 원형의 버튼을 목적지까지 이동시켜주세요.</string>
+    <!-- E -->
     <string name="test_e_instruction">E 과제\n다음 화면에 나타나는 화면 하단의 알림바를 끌어올려 와이파이 기능을 실행시켜주세요.</string>
 </resources>

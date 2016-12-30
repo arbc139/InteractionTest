@@ -13,10 +13,11 @@ import android.view.WindowManager;
 import java.util.List;
 
 import totoro.project.interaction.interactiontestproject.R;
+import totoro.project.interaction.interactiontestproject.common.Position;
 
 public class TestDrawView extends View {
 
-  List<Pair<Integer, Integer>> points;
+  List<Position> points;
   Paint paint;
 
   public TestDrawView(Context context, AttributeSet attrs) {
@@ -35,8 +36,8 @@ public class TestDrawView extends View {
   @Override
   public void onDraw(Canvas canvas) {
     super.onDraw(canvas);
-    for (Pair<Integer, Integer> point : points) {
-      canvas.drawCircle(point.first, point.second, 5, paint);
+    for (Position point : points) {
+      canvas.drawCircle(point.x, point.y, 5, paint);
     }
   }
 }

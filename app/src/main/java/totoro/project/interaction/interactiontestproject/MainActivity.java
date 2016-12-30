@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
     binding.handType.setOnCheckedChangeListener(this);
     binding.testType.setOnCheckedChangeListener(this);
     binding.nextButton.setOnClickListener(this);
+    binding.settingButton.setOnClickListener(this);
   }
 
   private void validateSharedPreferences() {
@@ -240,28 +241,36 @@ public class MainActivity extends AppCompatActivity implements
   /** OnClickListener methods */
   @Override
   public void onClick(View view) {
-    if (view.getId() != R.id.next_button) {
-      throw new RuntimeException("Invalid click button: " + view.toString());
-    }
-    // TODO(totoro): Data들이 모두 설정되었는지 체크해야함.
-    if (name.isEmpty() || deviceNumber.isEmpty() || postureType == PostureType.UNKNOWN
-        || handType == HandType.UNKNOWN || testType == TestType.UNKNOWN) {
-      Toast
-          .makeText(
+    switch (view.getId()) {
+      case R.id.next_button: {
+        // Data들이 모두 설정되었는지 체크.
+        if (name.isEmpty() || deviceNumber.isEmpty() || postureType == PostureType.UNKNOWN
+                || handType == HandType.UNKNOWN || testType == TestType.UNKNOWN) {
+          Toast.makeText(
               this, getResources().getString(R.string.incomplete_input_error), Toast.LENGTH_SHORT)
-          .show();
-      return;
-    }
-    SharedPreferences.Editor editor =
-        getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).edit();
-    editor.putString(KeyMap.SHARED_PREFERENCES_NAME, name);
-    editor.putString(KeyMap.SHARED_PREFERENCES_DEVICE_NUMBER, deviceNumber);
-    editor.putString(KeyMap.SHARED_PREFERENCES_POSTURE_TYPE, postureType.name());
-    editor.putString(KeyMap.SHARED_PREFERENCES_HAND_TYPE, handType.name());
-    editor.putString(KeyMap.SHARED_PREFERENCES_TEST_TYPE, testType.name());
-    editor.apply();
+              .show();
+          return;
+        }
+        SharedPreferences.Editor editor =
+                getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).edit();
+        editor.putString(KeyMap.SHARED_PREFERENCES_NAME, name);
+        editor.putString(KeyMap.SHARED_PREFERENCES_DEVICE_NUMBER, deviceNumber);
+        editor.putString(KeyMap.SHARED_PREFERENCES_POSTURE_TYPE, postureType.name());
+        editor.putString(KeyMap.SHARED_PREFERENCES_HAND_TYPE, handType.name());
+        editor.putString(KeyMap.SHARED_PREFERENCES_TEST_TYPE, testType.name());
+        editor.apply();
 
-    startTest(testType);
+        startTest(testType);
+        break;
+      }
+      case R.id.setting_button: {
+        Intent intent = new Intent(this, SettingActivity.class);
+        startActivity(intent);
+        break;
+      }
+      default:
+        throw new RuntimeException("Invalid click button: " + view.toString());
+    }
   }
 
   private void startTest(TestType type) {

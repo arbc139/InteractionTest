@@ -6,11 +6,13 @@ import android.util.Pair;
 import java.util.Collections;
 import java.util.List;
 
+import totoro.project.interaction.interactiontestproject.common.Position;
+
 public class PointManager {
 
   private int count;
   private Pair<Integer, Integer> basePoint;
-  private List<Pair<Integer, Integer>> positions;
+  private List<Position> positions;
   private int maxCount;
 
   public PointManager(int baseX, int baseY, int baseRadius, double baseDegree, int screenWidth,
@@ -29,12 +31,24 @@ public class PointManager {
     Collections.shuffle(positions);
   }
 
+  public int getCount() {
+    return count;
+  }
+
   public void increaseCount() {
     count++;
   }
 
+  public String getTargetId() {
+    Position current = getCurrentPosition();
+    if (current == null) {
+      return "null";
+    }
+    return current.id;
+  }
+
   @Nullable
-  public Pair<Integer, Integer> getCurrentPoint() {
+  public Position getCurrentPosition() {
     if (count >= maxCount) {
       // Done.
       return null;
@@ -44,5 +58,18 @@ public class PointManager {
       resetCount();
     }
     return positions.get(Math.max(count / 2, 0));
+  }
+
+  @Nullable
+  public Pair<Integer, Integer> getCurrentPoint() {
+    Position current = getCurrentPosition();
+    if (current == null) {
+      return null;
+    }
+    return current.toPair();
+  }
+
+  public int getTargetCount() {
+    return Math.max(count / 2, 0) + 1;
   }
 }

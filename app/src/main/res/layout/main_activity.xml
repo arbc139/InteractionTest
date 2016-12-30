@@ -220,12 +220,14 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <FrameLayout
                 android:layout_width="@dimen/common_button_width"
                 android:layout_height="@dimen/common_button_height"
-                android:background="@color/accent">
+                android:background="@color/accent"
+                android:layout_marginEnd="@dimen/common_margin_long">
 
                 <Button
                     android:id="@+id/next_button"
@@ -234,6 +236,20 @@
                     android:layout_height="match_parent"
                     android:background="?selectableItemBackground"
                     android:text="@string/next_step_button"/>
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="@dimen/common_button_width"
+                android:layout_height="@dimen/common_button_height"
+                android:background="@color/accent">
+
+                <Button
+                    android:id="@+id/setting_button"
+                    style="@style/ButtonTypo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?selectableItemBackground"
+                    android:text="@string/setting_button"/>
             </FrameLayout>
         </LinearLayout>
 
