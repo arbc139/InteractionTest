@@ -21,4 +21,6 @@ public class KeyMap {
   public static final String SHARED_PREFERENCES_SETTING_A_BUTTON_RADIUS = "totoro.project.interaction.interactiontestproject.KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_RADIUS";
   public static final String SHARED_PREFERENCES_SETTING_A_BUTTON_DEGREE = "totoro.project.interaction.interactiontestproject.KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_DEGREE";
   public static final String SHARED_PREFERENCES_SETTING_A_TEST_COUNT = "totoro.project.interaction.interactiontestproject.KeyMap.SHARED_PREFERENCES_SETTING_A_TEST_COUNT";
+  public static final String SHARED_PREFERENCES_SETTING_B_BUTTON_SIZE = "totoro.project.interaction.interactiontestproject.KeyMap.SHARED_PREFERENCES_SETTING_B_BUTTON_SIZE";
+  public static final String SHARED_PREFERENCES_SETTING_B_BUTTON_INTERVAL = "totoro.project.interaction.interactiontestproject.KeyMap.SHARED_PREFERENCES_SETTING_B_BUTTON_INTERVAL";
 }

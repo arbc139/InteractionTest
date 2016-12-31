@@ -38,6 +38,13 @@ public class CsvManager {
     writer = null;
   }
 
+  public void safeClear() {
+    if (writer != null) {
+      closeCsvWriter();
+      writer = null;
+    }
+  }
+
   private static File createDirectory(@NonNull File basePath, @NonNull String[] directories) {
     String filePath = File.separator;
     for (String directoryName : directories) {

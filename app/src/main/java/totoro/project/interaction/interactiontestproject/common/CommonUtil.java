@@ -84,4 +84,16 @@ public class CommonUtil {
     SimpleDateFormat formatter = new SimpleDateFormat("(yyyy년_MM월_dd일_hh:mm:ss)");
     return formatter.format(date);
   }
+
+  public static float toMillimeterCsvCoordinate(float pixel, int screenSize,
+                                                DisplayMetrics metrics) {
+    float csvCoorPixel = screenSize - pixel;
+    return toMillimeter(csvCoorPixel, metrics);
+  }
+
+  public static float toPixelAppCoordinate(float millimeter, int screenSize,
+                                           DisplayMetrics metrics) {
+    float pixel = toPixel(millimeter, metrics);
+    return screenSize - pixel;
+  }
 }

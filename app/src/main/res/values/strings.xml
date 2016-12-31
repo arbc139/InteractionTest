@@ -27,12 +27,14 @@
     <string name="test_type_e">E</string>
     <!-- Setting -->
     <string name="setting_screen_hide_height">가릴 영역 높이 (mm)</string>
-    <string name="setting_a_base_x">홈버튼 X</string>
-    <string name="setting_a_base_y">홈버튼 Y</string>
+    <string name="setting_a_base_x">홈버튼 X (오른쪽 아래 기준 mm)</string>
+    <string name="setting_a_base_y">홈버튼 Y (오른쪽 아래 기준 mm)</string>
     <string name="setting_a_button_size">버튼 사이즈 (mm)</string>
     <string name="setting_a_button_radius">버튼 사이의 간격 (mm)</string>
     <string name="setting_a_button_degree">각도 (°)</string>
     <string name="setting_a_test_count">테스트 횟수</string>
+    <string name="setting_b_button_size">버튼 사이즈 (mm)</string>
+    <string name="setting_b_button_interval">버튼 간격 (mm)</string>
     <!-- A -->
     <string name="test_a_instruction">A 과제\n다음 화면에 나타나는 원형의 버튼을 터치해주세요.</string>
     <!-- B -->

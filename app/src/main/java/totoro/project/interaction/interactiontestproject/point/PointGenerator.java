@@ -30,7 +30,7 @@ public class PointGenerator {
 
   public List<Position> makePositions() {
     List<Position> result = new ArrayList<>();
-    for (int degree = 0; degree <= 180; degree += baseDegree) {
+    for (int degree = 0; degree < 180; degree += baseDegree) {
       Pair<Double, Double> delta = Pair.create(
           Math.cos(Math.toRadians(degree)), Math.sin(Math.toRadians(degree)));
       result.addAll(makeLinePositions(delta, degree));
@@ -41,12 +41,17 @@ public class PointGenerator {
 
   // 한 라인의 point들을 생성하는 함수.
   private List<Position> makeLinePositions(Pair<Double, Double> delta, int degree) {
+    boolean invert = false;
+    if (delta.first < 0) {
+      invert = true;
+    }
+
     List<Position> result = new ArrayList<>();
     for (int radius = baseRadius; ; radius += baseRadius) {
       Position position = new Position(
           Double.valueOf(basePoint.x + radius * delta.first).intValue(),
           Double.valueOf(basePoint.y + radius * delta.second).intValue());
-      position.id = String.format(Locale.KOREA, "%d, %d", radius, degree);
+      position.id = String.format(Locale.KOREA, "%d, %d", radius, invert ? degree + 180 : degree);
       if (!checkAvailable(position)) {
         break;
       }

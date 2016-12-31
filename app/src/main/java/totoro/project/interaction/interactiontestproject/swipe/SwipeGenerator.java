@@ -13,15 +13,15 @@ public class SwipeGenerator {
   }
 
   private Pair<Integer, Integer> basePoint;
-  private int baseScale;
+  private int baseInterval;
   private int screeenWidth;
   private int screenHeight;
   private int buttonSize;
 
-  public SwipeGenerator(Pair<Integer, Integer> basePoint, int baseScale, int screenWidth,
+  public SwipeGenerator(Pair<Integer, Integer> basePoint, int baseInterval, int screenWidth,
                         int screenHeight, int buttonSize) {
     this.basePoint = basePoint;
-    this.baseScale = baseScale;
+    this.baseInterval = baseInterval;
     this.screeenWidth = screenWidth;
     this.screenHeight = screenHeight;
     this.buttonSize = buttonSize;
@@ -29,8 +29,8 @@ public class SwipeGenerator {
 
   public List<Pair<Integer, Integer>> makePositions(SwipeType type) {
     List<Pair<Integer, Integer>> result = new ArrayList<>();
-    for (int scale = 0; ; scale += baseScale) {
-      Pair<Integer, Integer> position = makePosition(type, scale);
+    for (int interval = 0; ; interval += baseInterval) {
+      Pair<Integer, Integer> position = makePosition(type, interval);
       if(!checkAvailable(type, position)) {
         break;
       }
@@ -39,12 +39,12 @@ public class SwipeGenerator {
     return result;
   }
 
-  private Pair<Integer, Integer> makePosition(SwipeType type, int scale) {
+  private Pair<Integer, Integer> makePosition(SwipeType type, int interval) {
     switch (type) {
       case HORIZONTAL:
-        return Pair.create(basePoint.first, basePoint.second - scale);
+        return Pair.create(basePoint.first, basePoint.second - interval);
       case VERTICAL:
-        return Pair.create(basePoint.first + scale, basePoint.second);
+        return Pair.create(basePoint.first + interval, basePoint.second);
       default:
         throw new RuntimeException("Invalid swipe type: " + type);
     }

@@ -14,14 +14,13 @@ public class SwipeManager {
   private int count;
   private Pair<Integer, Integer> basePoint;
   private List<Pair<Integer, Integer>> positions;
-  private Iterator<Pair<Integer, Integer>> iterator;
 
   private int screenWidth;
   private int screenHeight;
   private int buttonSize;
   private SwipeType type;
 
-  public SwipeManager(int baseX, int baseY, int baseScale, int screenWidth, int screenHeight,
+  public SwipeManager(int baseX, int baseY, int interval, int screenWidth, int screenHeight,
                       int buttonSize, SwipeType type) {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
@@ -30,7 +29,7 @@ public class SwipeManager {
     basePoint = Pair.create(baseX, baseY);
     // Generates positions.
     SwipeGenerator generator = new SwipeGenerator(
-        basePoint, baseScale, screenWidth, screenHeight, buttonSize);
+        basePoint, interval, screenWidth, screenHeight, buttonSize);
     positions = generator.makePositions(type);
     Collections.shuffle(positions);
   }
@@ -44,6 +43,10 @@ public class SwipeManager {
     count++;
   }
 
+  public int getCount() {
+    return count;
+  }
+
   @Nullable
   public Pair<Integer, Integer> getMirrorCurrentPosition() {
     if (positions.size() <= count) {
@@ -53,7 +56,7 @@ public class SwipeManager {
     Pair<Integer, Integer> position = positions.get(count);
     switch (type) {
       case HORIZONTAL:
-        return Pair.create(screenWidth - buttonSize - position.first, position.second);
+        return Pair.create(screenWidth / 2 - buttonSize / 2, position.second);
       case VERTICAL:
         return Pair.create(position.first, screenHeight / 2 - buttonSize / 2);
       default:

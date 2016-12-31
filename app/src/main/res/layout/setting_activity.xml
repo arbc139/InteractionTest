@@ -31,11 +31,11 @@
                     android:layout_weight="1"/>
             </LinearLayout>
 
-            <FrameLayout
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/background_tertiary">
-            </FrameLayout>
+            </View>
 
             <TextView
                 style="@style/FieldTypo"
@@ -167,6 +167,63 @@
 
                 <EditText
                     android:id="@+id/a_test_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/background_tertiary">
+            </View>
+
+            <TextView
+                style="@style/FieldTypo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:textSize="@dimen/common_text_size_large"
+                android:text="@string/test_type_b"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/setting_b_button_size"/>
+
+                <EditText
+                    android:id="@+id/b_button_size"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/setting_b_button_interval"/>
+
+                <EditText
+                    android:id="@+id/b_button_interval"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>

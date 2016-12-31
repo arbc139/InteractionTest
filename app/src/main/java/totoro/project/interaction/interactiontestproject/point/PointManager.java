@@ -39,12 +39,16 @@ public class PointManager {
     count++;
   }
 
-  public String getTargetId() {
+  public String getTargetNumber() {
     Position current = getCurrentPosition();
     if (current == null) {
       return "null";
     }
     return current.id;
+  }
+
+  public double getTargetId(int buttonSize, double homeTargetDistance) {
+    return Math.log(buttonSize / homeTargetDistance) / Math.log(2);
   }
 
   @Nullable

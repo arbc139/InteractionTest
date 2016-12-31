@@ -6,15 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.MotionEvent;
-import android.view.OrientationEventListener;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import totoro.project.interaction.interactiontestproject.common.CommonUtil;
 import totoro.project.interaction.interactiontestproject.csv.CsvManager;
@@ -26,6 +24,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.changePosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeter;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
 public class PointActivity extends AppCompatActivity implements
     View.OnTouchListener, View.OnClickListener {
@@ -114,8 +114,8 @@ public class PointActivity extends AppCompatActivity implements
     SharedPreferences sharedPreferences =
         getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE);
     screenHideHeight = (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_SCREEN_HIDE_HEIGHT, 0);
-    testBasePointX = sharedPreferences.getInt(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 300);
-    testBasePointY = sharedPreferences.getInt(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, 400);
+    testBasePointX = (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 300);
+    testBasePointY = (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, 400);
     testButtonSize = (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_SIZE, 50);
     testButtonDegree = sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_DEGREE, 22.5f);
     testButtonRadius = (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_RADIUS, 50);
@@ -141,14 +141,22 @@ public class PointActivity extends AppCompatActivity implements
     changePosition(
         binding.targetButtonLayout, firstTargetPosition.first, firstTargetPosition.second);
 
-    binding.baseButton.setOnTouchListener(this);
-    binding.targetButton.setOnTouchListener(this);
+    binding.baseButtonLayout.setOnTouchListener(this);
+    binding.targetButtonLayout.setOnTouchListener(this);
     binding.nextButton.setOnClickListener(this);
+
+    RelativeLayout.LayoutParams baseParams = (RelativeLayout.LayoutParams) binding.baseButtonLayout.getLayoutParams();
+    baseParams.width = testButtonSize;
+    baseParams.height = testButtonSize;
+    binding.baseButtonLayout.setLayoutParams(baseParams);
+
+    RelativeLayout.LayoutParams targetParams = (RelativeLayout.LayoutParams) binding.targetButtonLayout.getLayoutParams();
+    targetParams.width = testButtonSize;
+    targetParams.height = testButtonSize;
+    binding.targetButtonLayout.setLayoutParams(targetParams);
 
     binding.baseButtonLayout.setVisibility(GONE);
     binding.targetButtonLayout.setVisibility(GONE);
-
-    validateCsvManager(getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE));
   }
 
   private void validateCsvManager(SharedPreferences sharedPreferences) {
@@ -175,8 +183,8 @@ public class PointActivity extends AppCompatActivity implements
         System.out.println("Touched " + x + ", " + y);
         Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
         writeCsv(
-            pointManager.getCount(), pointManager.getTargetCount(), buttonPosition.first,
-            buttonPosition.second, pointManager.getTargetId(), false, x, y, timer.elapse(false));
+            pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
+            buttonPosition.second, false, x, y, timer.elapse(false));
       case MotionEvent.ACTION_MOVE:
       case MotionEvent.ACTION_UP:
     }
@@ -190,10 +198,10 @@ public class PointActivity extends AppCompatActivity implements
     }
     Pair<Integer, Integer> nestPosition = Pair.create((int) event.getX(), (int) event.getY());
     switch (view.getId()) {
-      case R.id.base_button:
+      case R.id.base_button_layout:
         handleClickBaseButton(nestPosition);
         return true;
-      case R.id.target_button:
+      case R.id.target_button_layout:
         handleClickTargetButton(nestPosition);
         return true;
       default:
@@ -203,7 +211,7 @@ public class PointActivity extends AppCompatActivity implements
 
   @Override
   public void onBackPressed() {
-    csvManager.clear();
+    csvManager.safeClear();
     finish();
   }
 
@@ -225,6 +233,7 @@ public class PointActivity extends AppCompatActivity implements
     binding.instructionLayout.setVisibility(GONE);
     binding.baseButtonLayout.setVisibility(VISIBLE);
     binding.targetButtonLayout.setVisibility(GONE);
+    validateCsvManager(getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE));
     timer.start();
   }
 
@@ -235,8 +244,8 @@ public class PointActivity extends AppCompatActivity implements
     // CSV에 성공여부를 입력.
     Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
     writeCsv(
-        pointManager.getCount(), pointManager.getTargetCount(), buttonPosition.first,
-        buttonPosition.second, pointManager.getTargetId(), true, measuredPosition.first,
+        pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
+        buttonPosition.second, true, measuredPosition.first,
         measuredPosition.second, timer.elapse(true));
 
     pointManager.increaseCount();
@@ -257,8 +266,8 @@ public class PointActivity extends AppCompatActivity implements
     // CSV에 성공여부를 입력.
     Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
     writeCsv(
-        pointManager.getCount(), pointManager.getTargetCount(), buttonPosition.first,
-        buttonPosition.second, pointManager.getTargetId(), true, measuredPosition.first,
+        pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
+        buttonPosition.second, true, measuredPosition.first,
         measuredPosition.second, timer.elapse(true));
 
     pointManager.increaseCount();
@@ -317,10 +326,10 @@ public class PointActivity extends AppCompatActivity implements
    */
   private void writeCsv(int count,
                         /* String name, String deviceNumber, String postureType, String handType, */
-                        int targetCount, int targetX, int targetY, /* int homeTargetDistance, */
+                        String targetNumber, int targetX, int targetY, /* int homeTargetDistance, */
                         /* int targetDiameter, int buttonRadius, int buttonDegree, */
-                        String targetId, boolean success, int touchX, int touchY,
-                        /* int deltaX, int deltaY, int targetTouchDistance, int homeTouchDistance, int touchIDe,*/
+                        /* double targetId, */ boolean success, int touchX, int touchY,
+                        /* int deltaX, int deltaY, int targetTouchDistance, int homeTouchDistance,*/
                         long elapsedTimeMillis) {
     Pair<Integer, Integer> targetCenter = CommonUtil.toCenterPosition(
         Pair.create(targetX, targetY), testButtonSize);
@@ -333,6 +342,7 @@ public class PointActivity extends AppCompatActivity implements
     double homeTouchDistance = CommonUtil.getDistance(homeCenter, touch);
     int deltaX = touchX - targetCenter.first;
     int deltaY = touchY - targetCenter.second;
+    double targetId = pointManager.getTargetId(testButtonSize, homeTargetDistance);
 
     csvManager.write(new String[] {
         String.valueOf(count),
@@ -340,22 +350,30 @@ public class PointActivity extends AppCompatActivity implements
         deviceNumber,
         postureType,
         handType,
-        String.valueOf(targetCount),
-        String.valueOf(targetCenter.first),
-        String.valueOf(targetCenter.second),
-        String.valueOf(homeTargetDistance),
-        String.valueOf(testButtonSize * 2),
-        String.valueOf(testButtonRadius),
+        targetNumber,
+        String.valueOf(toMillimeterCsvCoordinate(
+            targetCenter.first, screenSize.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeterCsvCoordinate(
+            targetCenter.second, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            Double.valueOf(homeTargetDistance).floatValue(), getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(testButtonSize * 2, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(testButtonRadius, getResources().getDisplayMetrics())),
         String.valueOf(testButtonDegree),
-        targetId,
+        String.valueOf(targetId),
         success ? "SUCCESS" : "FAILED",
-        String.valueOf(touchX),
-        String.valueOf(touchY),
-        String.valueOf(deltaX),
-        String.valueOf(deltaY),
-        String.valueOf(targetTouchDistance),
-        String.valueOf(homeTouchDistance),
-        "null",
+        String.valueOf(toMillimeterCsvCoordinate(
+            touchX, screenSize.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeterCsvCoordinate(
+            touchY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeterCsvCoordinate(
+            deltaX, screenSize.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeterCsvCoordinate(
+            deltaY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            Double.valueOf(targetTouchDistance).floatValue(), getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            Double.valueOf(homeTouchDistance).floatValue(), getResources().getDisplayMetrics())),
         String.format(Locale.KOREA, "%dms", elapsedTimeMillis),
     });
   }

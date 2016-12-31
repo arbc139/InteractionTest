@@ -5,7 +5,7 @@
         android:id="@+id/root_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_quinary"
+        android:background="@color/black"
         android:gravity="top"
         android:orientation="vertical">
 
@@ -20,12 +20,6 @@
                 android:layout_width="@dimen/point_button_size"
                 android:layout_height="@dimen/point_button_size"
                 android:background="@drawable/circle">
-
-                <Button
-                    android:id="@+id/base_button"
-                    android:layout_width="@dimen/point_button_size"
-                    android:layout_height="@dimen/point_button_size"
-                    android:background="?selectableItemBackgroundBorderless"/>
             </FrameLayout>
 
             <FrameLayout
@@ -33,12 +27,6 @@
                 android:layout_width="@dimen/point_button_size"
                 android:layout_height="@dimen/point_button_size"
                 android:background="@drawable/circle_accent">
-
-                <Button
-                    android:id="@+id/target_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?selectableItemBackgroundBorderless"/>
             </FrameLayout>
 
             <LinearLayout
