@@ -18,6 +18,8 @@
         </activity>
         <activity android:name="totoro.project.interaction.interactiontestproject.SettingActivity">
         </activity>
+        <activity android:name="totoro.project.interaction.interactiontestproject.BeforeTestActivity">
+        </activity>
         <activity android:name="totoro.project.interaction.interactiontestproject.PointActivity">
         </activity>
         <activity android:name="totoro.project.interaction.interactiontestproject.SwipeActivity">

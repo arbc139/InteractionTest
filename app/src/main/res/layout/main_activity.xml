@@ -1,257 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/common_margin_long"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_middle"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/FieldTypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:text="@string/name"/>
-
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_middle"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/FieldTypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:text="@string/device_number"/>
-
-            <EditText
-                android:id="@+id/device_number"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_middle"
+            android:layout_margin="@dimen/common_margin_long"
             android:orientation="vertical">
 
-            <TextView
-                style="@style/FieldTypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginBottom="@dimen/common_margin_middle"
-                android:text="@string/posture_type"/>
-
-            <RadioGroup
-                android:id="@+id/posture_type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/posture_type_sit"
+                <TextView
                     style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/name"/>
+
+                <EditText
+                    android:id="@+id/name"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/posture_type_sit"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/posture_type_stand"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/posture_type_stand"/>
-
-                <RadioButton
-                    android:id="@+id/posture_type_lie_down"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/posture_type_lie_down"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_middle"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/FieldTypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginBottom="@dimen/common_margin_middle"
-                android:text="@string/hand_type"
-                android:id="@+id/textView"/>
-
-            <RadioGroup
-                android:id="@+id/hand_type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginStart="@dimen/common_margin_middle"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/hand_type_one"
+                <TextView
                     style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/device_number"/>
+
+                <EditText
+                    android:id="@+id/device_number"
                     android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/hand_type_one"/>
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
 
-                <RadioButton
-                    android:id="@+id/hand_type_horizontal_both"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/hand_type_horizontal_both"/>
-
-                <RadioButton
-                    android:id="@+id/hand_type_vertical_both"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/hand_type_vertical_both"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/common_margin_middle"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/FieldTypo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginBottom="@dimen/common_margin_middle"
-                android:text="@string/test_type"/>
-
-            <RadioGroup
-                android:id="@+id/test_type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/common_margin_middle"
-                android:layout_marginStart="@dimen/common_margin_middle"
-                android:orientation="horizontal">
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:orientation="vertical">
 
-                <RadioButton
-                    android:id="@+id/test_type_a"
+                <TextView
                     style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/test_type_a"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin_middle"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/posture_type"/>
 
-                <RadioButton
-                    android:id="@+id/test_type_b"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/test_type_b"/>
-
-                <RadioButton
-                    android:id="@+id/test_type_c"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/test_type_c"/>
-
-                <RadioButton
-                    android:id="@+id/test_type_d"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/test_type_d"/>
-
-                <RadioButton
-                    android:id="@+id/test_type_e"
-                    style="@style/FieldTypo"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/radio_button_size"
-                    android:layout_weight="1"
-                    android:text="@string/test_type_e"/>
-
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="@dimen/common_button_width"
-                android:layout_height="@dimen/common_button_height"
-                android:background="@color/accent"
-                android:layout_marginEnd="@dimen/common_margin_long">
-
-                <Button
-                    android:id="@+id/next_button"
-                    style="@style/ButtonTypo"
+                <RadioGroup
+                    android:id="@+id/posture_type"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?selectableItemBackground"
-                    android:text="@string/next_step_button"/>
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:layout_marginStart="@dimen/common_margin_middle"
+                    android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="@dimen/common_button_width"
-                android:layout_height="@dimen/common_button_height"
-                android:background="@color/accent">
+                    <RadioButton
+                        android:id="@+id/posture_type_sit"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/posture_type_sit"/>
 
-                <Button
+                    <RadioButton
+                        android:id="@+id/posture_type_stand"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/posture_type_stand"/>
+
+                    <RadioButton
+                        android:id="@+id/posture_type_lie_down"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/posture_type_lie_down"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin_middle"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/hand_type"/>
+
+                <RadioGroup
+                    android:id="@+id/hand_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:layout_marginStart="@dimen/common_margin_middle"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/hand_type_one"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/hand_type_one"/>
+
+                    <RadioButton
+                        android:id="@+id/hand_type_horizontal_both"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/hand_type_horizontal_both"/>
+
+                    <RadioButton
+                        android:id="@+id/hand_type_vertical_both"
+                        style="@style/FieldTypo"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:layout_weight="1"
+                        android:text="@string/hand_type_vertical_both"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin_middle"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/test_type"/>
+
+                <RadioGroup
+                    android:id="@+id/test_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:layout_marginStart="@dimen/common_margin_middle"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/test_type_before"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_before"/>
+
+                    <RadioButton
+                        android:id="@+id/test_type_a"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_a"/>
+
+                    <RadioButton
+                        android:id="@+id/test_type_b"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_b"/>
+
+                    <RadioButton
+                        android:id="@+id/test_type_c"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_c"/>
+
+                    <RadioButton
+                        android:id="@+id/test_type_d"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_d"/>
+
+                    <RadioButton
+                        android:id="@+id/test_type_e"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_e"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/save_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="@dimen/common_button_width"
+                    android:layout_height="@dimen/common_button_height"
+                    android:layout_marginEnd="@dimen/common_margin_long"
+                    android:background="@color/accent">
+
+                    <Button
+                        android:id="@+id/next_button"
+                        style="@style/ButtonTypo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?selectableItemBackground"
+                        android:text="@string/next_step_button"/>
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/common_margin_long">
+
+                <LinearLayout
                     android:id="@+id/setting_button"
-                    style="@style/ButtonTypo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?selectableItemBackground"
-                    android:text="@string/setting_button"/>
-            </FrameLayout>
-        </LinearLayout>
+                    android:layout_width="@dimen/common_button_height"
+                    android:layout_height="@dimen/common_button_height"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:gravity="center">
 
-    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_settings_black_24dp"
+                        android:tint="@color/background_quinary"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

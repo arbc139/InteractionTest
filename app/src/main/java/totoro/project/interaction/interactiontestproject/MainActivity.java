@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements
   }
 
   public enum TestType {
-    UNKNOWN, TEST_A, TEST_B, TEST_C, TEST_D, TEST_E,
+    UNKNOWN, TEST_BEFORE, TEST_A, TEST_B, TEST_C, TEST_D, TEST_E,
   }
 
   private MainActivityBinding binding;
@@ -194,6 +194,9 @@ public class MainActivity extends AppCompatActivity implements
 
   private void handleTestType(int type) {
     switch (type) {
+      case R.id.test_type_before:
+        testType = TestType.TEST_BEFORE;
+        break;
       case R.id.test_type_a:
         testType = TestType.TEST_A;
         break;
@@ -218,6 +221,9 @@ public class MainActivity extends AppCompatActivity implements
     switch (type) {
       case UNKNOWN:
         return;
+      case TEST_BEFORE:
+        binding.testType.check(R.id.test_type_before);
+        break;
       case TEST_A:
         binding.testType.check(R.id.test_type_a);
         break;
@@ -275,6 +281,11 @@ public class MainActivity extends AppCompatActivity implements
 
   private void startTest(TestType type) {
     switch (type) {
+      case TEST_BEFORE: {
+        Intent intent = new Intent(MainActivity.this, BeforeTestActivity.class);
+        startActivity(intent);
+        break;
+      }
       case TEST_A: {
         Intent intent = new Intent(MainActivity.this, PointActivity.class);
         startActivity(intent);

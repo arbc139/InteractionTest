@@ -44,6 +44,43 @@
                 android:layout_marginEnd="@dimen/common_margin_middle"
                 android:layout_marginBottom="@dimen/common_margin_middle"
                 android:textSize="@dimen/common_text_size_large"
+                android:text="@string/test_type_before"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/FieldTypo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/common_margin_middle"
+                    android:text="@string/setting_before_test_count"/>
+
+                <EditText
+                    android:id="@+id/before_test_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/background_tertiary">
+            </View>
+
+            <TextView
+                style="@style/FieldTypo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/common_margin_middle"
+                android:layout_marginBottom="@dimen/common_margin_middle"
+                android:textSize="@dimen/common_text_size_large"
                 android:text="@string/test_type_a"/>
 
             <LinearLayout

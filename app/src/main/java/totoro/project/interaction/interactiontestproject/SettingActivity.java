@@ -4,12 +4,9 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import totoro.project.interaction.interactiontestproject.common.CommonUtil;
@@ -20,6 +17,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
   SettingActivityBinding binding;
 
   private String screenHideHeight;
+  private String beforeTestCount;
   private String aBaseX;
   private String aBaseY;
   private String aButtonSize;
@@ -37,8 +35,6 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     super.onCreate(savedInstanceState);
     binding = DataBindingUtil.setContentView(this, R.layout.setting_activity);
 
-
-
     // Populates screen size.
     final View content = findViewById(android.R.id.content);
     content.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -54,166 +50,22 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         screenSize = Pair.create(content.getMeasuredWidth(), content.getMeasuredHeight());
 
         validateSharedPreferences();
-        setBindings();
+        binding.saveButton.setOnClickListener(SettingActivity.this);
       }
     });
   }
 
-  private void setBindings() {
-    binding.screenHideHeight.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        screenHideHeight = s.toString();
-        System.out.println("screenHideHeight input: " + screenHideHeight);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aBaseX.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aBaseX = s.toString();
-        System.out.println("A Base X input: " + aBaseX);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aBaseY.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aBaseY = s.toString();
-        System.out.println("A Base Y input: " + aBaseY);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aButtonDegree.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aButtonDegree = s.toString();
-        System.out.println("A Button Degree input: " + aButtonDegree);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aButtonSize.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aButtonSize = s.toString();
-        System.out.println("A Button Size input: " + aButtonSize);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aButtonRadius.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aButtonRadius = s.toString();
-        System.out.println("A Button Radius input: " + aButtonRadius);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.aTestCount.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        aTestCount = s.toString();
-        System.out.println("A Test Count input: " + aTestCount);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.bButtonSize.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        bButtonSize = s.toString();
-        System.out.println("bButtonSize input: " + bButtonSize);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.bButtonInterval.addTextChangedListener(new TextWatcher() {
-      @Override
-      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        // Do nothing.
-      }
-
-      @Override
-      public void onTextChanged(CharSequence s, int start, int before, int count) {
-        bButtonInterval = s.toString();
-        System.out.println("bButtonInterval input: " + bButtonInterval);
-      }
-
-      @Override
-      public void afterTextChanged(Editable s) {
-        // Do nothing.
-      }
-    });
-    binding.saveButton.setOnClickListener(this);
+  private void getBindingStrings() {
+    screenHideHeight = binding.screenHideHeight.getText().toString();
+    beforeTestCount = binding.beforeTestCount.getText().toString();
+    aBaseX = binding.aBaseX.getText().toString();
+    aBaseY = binding.aBaseY.getText().toString();
+    aButtonDegree = binding.aButtonDegree.getText().toString();
+    aButtonSize = binding.aButtonSize.getText().toString();
+    aButtonRadius = binding.aButtonRadius.getText().toString();
+    aTestCount = binding.aTestCount.getText().toString();
+    bButtonSize = binding.bButtonSize.getText().toString();
+    bButtonInterval = binding.bButtonInterval.getText().toString();
   }
 
   @Override
@@ -221,8 +73,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     if (view.getId() != R.id.save_button) {
       throw new RuntimeException("Invalid clicked view: " + view.toString());
     }
+    getBindingStrings();
     // Data들이 모두 설정되었는지 체크.
-    if (screenHideHeight.isEmpty() || aBaseX.isEmpty() || aBaseY.isEmpty()
+    if (screenHideHeight.isEmpty() || beforeTestCount.isEmpty() || aBaseX.isEmpty() || aBaseY.isEmpty()
         || aButtonSize.isEmpty() || aButtonRadius.isEmpty() || aButtonDegree.isEmpty()
         || aTestCount.isEmpty() || bButtonSize.isEmpty() || bButtonInterval.isEmpty()) {
       Toast.makeText(
@@ -231,7 +84,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
       return;
     }
     // Data들이 모두 integer인지 확인.
-    if (!checkFloat(screenHideHeight) || !checkFloat(aBaseX) || !checkFloat(aBaseY)
+    if (!checkFloat(screenHideHeight) || !checkInt(beforeTestCount) || !checkFloat(aBaseX) || !checkFloat(aBaseY)
         || !checkFloat(aButtonSize) || !checkFloat(aButtonDegree) || !checkFloat(aButtonRadius)
         || !checkInt(aTestCount) || !checkFloat(bButtonSize) || !checkFloat(bButtonInterval)) {
       Toast.makeText(
@@ -247,6 +100,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     screenSize = Pair.create(rootScreenSize.first, (int) (rootScreenSize.second - screenHideHeightPixel));
     editor.putFloat(
         KeyMap.SHARED_PREFERENCES_SETTING_SCREEN_HIDE_HEIGHT, screenHideHeightPixel);
+
+    System.out.println("Saved creen size: " + screenSize.first + ", " + screenSize.second);
+
+    editor.putInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, Integer.valueOf(beforeTestCount));
 
     Pair<Integer, Integer> originalABasePosition = CommonUtil.toOriginalPosition(
         Pair.create(
@@ -307,6 +164,10 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
             screenHideHeightPixel, getResources().getDisplayMetrics()));
     binding.screenHideHeight.setText(screenHideHeight);
     screenSize = Pair.create(rootScreenSize.first, (int) (rootScreenSize.second - screenHideHeightPixel));
+
+    beforeTestCount = String.valueOf(
+        sharedPreferences.getInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, 0));
+    binding.beforeTestCount.setText(String.valueOf(beforeTestCount));
 
     Pair<Integer, Integer> centerBasePosition = CommonUtil.toCenterPosition(Pair.create(
         Float.valueOf(sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 0)).intValue(),

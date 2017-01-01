@@ -22,4 +22,5 @@
     <dimen name="noti_bar_option_button_size">40dp</dimen>
     <!-- Main activity -->
     <dimen name="radio_button_size">24dp</dimen>
+    <dimen name="save_layout_height">128dp</dimen>
 </resources>
