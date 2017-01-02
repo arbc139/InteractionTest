@@ -184,6 +184,13 @@
                         android:text="@string/test_type_before"/>
 
                     <RadioButton
+                        android:id="@+id/test_type_before_2"
+                        style="@style/FieldTypo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/radio_button_size"
+                        android:text="@string/test_type_before_2"/>
+
+                    <RadioButton
                         android:id="@+id/test_type_a"
                         style="@style/FieldTypo"
                         android:layout_width="wrap_content"

@@ -10,6 +10,8 @@
     <dimen name="common_margin_short">4dp</dimen>
     <dimen name="common_margin_middle">8dp</dimen>
     <dimen name="common_margin_long">16dp</dimen>
+    <!-- Before test 2 activity -->
+    <dimen name="before_test_2_button_marginBottom">100dp</dimen>
     <!-- Point activity -->
     <dimen name="point_button_size">0.196in</dimen>
     <dimen name="base_radius">0.196in</dimen>
@@ -17,7 +19,7 @@
     <dimen name="swipe_button_size">0.196in</dimen>
     <dimen name="base_scale">0.196in</dimen>
     <!-- Slide noti activity -->
-    <dimen name="noti_bar_height">0.196in</dimen>
+    <dimen name="noti_bar_height">100dp</dimen>
     <dimen name="noti_bar_shadow">4dp</dimen>
     <dimen name="noti_bar_option_button_size">40dp</dimen>
     <!-- Main activity -->

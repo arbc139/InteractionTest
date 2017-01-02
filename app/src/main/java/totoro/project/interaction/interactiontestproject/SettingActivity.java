@@ -18,6 +18,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
   private String screenHideHeight;
   private String beforeTestCount;
+  private String beforeTest2TargetX;
+  private String beforeTest2TargetY;
+  private String beforeTest2ButtonSize;
   private String aBaseX;
   private String aBaseY;
   private String aButtonSize;
@@ -58,6 +61,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
   private void getBindingStrings() {
     screenHideHeight = binding.screenHideHeight.getText().toString();
     beforeTestCount = binding.beforeTestCount.getText().toString();
+    beforeTest2TargetX = binding.beforeTest2TargetX.getText().toString();
+    beforeTest2TargetY = binding.beforeTest2TargetY.getText().toString();
+    beforeTest2ButtonSize = binding.beforeTest2ButtonSize.getText().toString();
     aBaseX = binding.aBaseX.getText().toString();
     aBaseY = binding.aBaseY.getText().toString();
     aButtonDegree = binding.aButtonDegree.getText().toString();
@@ -75,7 +81,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     }
     getBindingStrings();
     // Data들이 모두 설정되었는지 체크.
-    if (screenHideHeight.isEmpty() || beforeTestCount.isEmpty() || aBaseX.isEmpty() || aBaseY.isEmpty()
+    if (screenHideHeight.isEmpty() || beforeTestCount.isEmpty() || beforeTest2TargetX.isEmpty()
+        || beforeTest2TargetY.isEmpty() || beforeTest2ButtonSize.isEmpty() || aBaseX.isEmpty()
+        || aBaseY.isEmpty()
         || aButtonSize.isEmpty() || aButtonRadius.isEmpty() || aButtonDegree.isEmpty()
         || aTestCount.isEmpty() || bButtonSize.isEmpty() || bButtonInterval.isEmpty()) {
       Toast.makeText(
@@ -84,7 +92,9 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
       return;
     }
     // Data들이 모두 integer인지 확인.
-    if (!checkFloat(screenHideHeight) || !checkInt(beforeTestCount) || !checkFloat(aBaseX) || !checkFloat(aBaseY)
+    if (!checkFloat(screenHideHeight) || !checkInt(beforeTestCount)
+        || !checkFloat(beforeTest2TargetX) || !checkFloat(beforeTest2ButtonSize)
+        || !checkFloat(beforeTest2TargetY) || !checkFloat(aBaseX) || !checkFloat(aBaseY)
         || !checkFloat(aButtonSize) || !checkFloat(aButtonDegree) || !checkFloat(aButtonRadius)
         || !checkInt(aTestCount) || !checkFloat(bButtonSize) || !checkFloat(bButtonInterval)) {
       Toast.makeText(
@@ -105,18 +115,32 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     editor.putInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, Integer.valueOf(beforeTestCount));
 
+    Pair<Integer, Integer> originalBeforeTest2TargetPosition = CommonUtil.toOriginalPosition(
+        Pair.create(
+            Float.valueOf(CommonUtil.toPixel(Float.valueOf(beforeTest2TargetX), getResources().getDisplayMetrics())).intValue(),
+            Float.valueOf(CommonUtil.toPixel(Float.valueOf(beforeTest2TargetY), getResources().getDisplayMetrics())).intValue()),
+        (int) CommonUtil.toPixel(Float.valueOf(beforeTest2ButtonSize), getResources().getDisplayMetrics()));
+    editor.putFloat(
+        KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_X, originalBeforeTest2TargetPosition.first);
+    editor.putFloat(
+        KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_Y, originalBeforeTest2TargetPosition.second);
+    editor.putFloat(
+        KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_BUTTON_SIZE,
+        CommonUtil.toPixel(Float.valueOf(beforeTest2ButtonSize), getResources().getDisplayMetrics()));
+    System.out.println("SHARED_PREFERENCES beforeTest2ButtonSize: " + getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_BUTTON_SIZE, 0));
+
     Pair<Integer, Integer> originalABasePosition = CommonUtil.toOriginalPosition(
         Pair.create(
-            Float.valueOf(CommonUtil.toPixelAppCoordinate(Float.valueOf(aBaseX), screenSize.first, getResources().getDisplayMetrics())).intValue(),
-            Float.valueOf(CommonUtil.toPixelAppCoordinate(Float.valueOf(aBaseY), screenSize.second, getResources().getDisplayMetrics())).intValue()),
+            Float.valueOf(CommonUtil.toPixel(Float.valueOf(aBaseX), getResources().getDisplayMetrics())).intValue(),
+            Float.valueOf(CommonUtil.toPixel(Float.valueOf(aBaseY), getResources().getDisplayMetrics())).intValue()),
         (int) CommonUtil.toPixel(Float.valueOf(aButtonSize), getResources().getDisplayMetrics()));
-
     editor.putFloat(
         KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, originalABasePosition.first);
     editor.putFloat(
         KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, originalABasePosition.second);
     System.out.println("SHARED_PREFERENCES_SETTING_A_BASE_X: " + getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 0));
     System.out.println("SHARED_PREFERENCES_SETTING_A_BASE_Y: " + getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, 0));
+
     editor.putFloat(
         KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_SIZE,
         CommonUtil.toPixel(Float.valueOf(aButtonSize), getResources().getDisplayMetrics()));
@@ -169,13 +193,28 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         sharedPreferences.getInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, 0));
     binding.beforeTestCount.setText(String.valueOf(beforeTestCount));
 
+    Pair<Integer, Integer> centerBeforeTest2TargetPosition = CommonUtil.toCenterPosition(Pair.create(
+        Float.valueOf(sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_X, 0)).intValue(),
+        Float.valueOf(sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_Y, 0)).intValue()),
+        (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_BUTTON_SIZE, 0));
+    beforeTest2TargetX = String.valueOf(CommonUtil.toMillimeter(centerBeforeTest2TargetPosition.first, getResources().getDisplayMetrics()));
+    binding.beforeTest2TargetX.setText(beforeTest2TargetX);
+    beforeTest2TargetY = String.valueOf(CommonUtil.toMillimeter(centerBeforeTest2TargetPosition.second, getResources().getDisplayMetrics()));
+    binding.beforeTest2TargetY.setText(beforeTest2TargetY);
+    beforeTest2ButtonSize = String.valueOf(
+        CommonUtil.toMillimeter(
+            sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_BUTTON_SIZE, 0),
+            getResources().getDisplayMetrics()));
+    binding.beforeTest2ButtonSize.setText(beforeTest2ButtonSize);
+    System.out.println("validate beforeTest2ButtonSize: " + beforeTest2ButtonSize);
+
     Pair<Integer, Integer> centerBasePosition = CommonUtil.toCenterPosition(Pair.create(
         Float.valueOf(sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 0)).intValue(),
         Float.valueOf(sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, 0)).intValue()),
         (int) sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BUTTON_SIZE, 0));
-    aBaseX = String.valueOf(CommonUtil.toMillimeterCsvCoordinate(centerBasePosition.first, screenSize.first, getResources().getDisplayMetrics()));
+    aBaseX = String.valueOf(CommonUtil.toMillimeter(centerBasePosition.first, getResources().getDisplayMetrics()));
     binding.aBaseX.setText(aBaseX);
-    aBaseY = String.valueOf(CommonUtil.toMillimeterCsvCoordinate(centerBasePosition.second,screenSize.second, getResources().getDisplayMetrics()));
+    aBaseY = String.valueOf(CommonUtil.toMillimeter(centerBasePosition.second, getResources().getDisplayMetrics()));
     binding.aBaseY.setText(aBaseY);
     aButtonSize = String.valueOf(
         CommonUtil.toMillimeter(

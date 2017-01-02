@@ -105,6 +105,9 @@ public class PointActivity extends AppCompatActivity implements
         System.out.println("content width, height: " + content.getMeasuredWidth() + ", " + content.getMeasuredHeight());
         System.out.println("MainLayout width, height: " + mainLayout.getMeasuredWidth() + ", " + mainLayout.getMeasuredHeight());
         screenSize = Pair.create(mainLayout.getMeasuredWidth(), content.getMeasuredHeight() - screenHideHeight);
+        // Workaround.
+        testBasePointX = screenSize.first - testBasePointX;
+        testBasePointY = screenSize.second - testBasePointY;
         initViews();
       }
     });

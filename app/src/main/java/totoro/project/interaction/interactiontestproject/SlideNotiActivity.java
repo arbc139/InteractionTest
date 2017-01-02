@@ -34,6 +34,7 @@ public class SlideNotiActivity extends AppCompatActivity implements
   private Pair<Integer, Integer> screenSize;
 
   private boolean isFinished = false;
+  private boolean isDragged = false;
 
   private CsvManager dragCsvManager = new CsvManager();
   private CsvManager touchUpCsvManager = new CsvManager();
@@ -181,9 +182,15 @@ public class SlideNotiActivity extends AppCompatActivity implements
 
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
-        // Fall through.
+        if (isDragged) {
+          // CSV에 실패 기록을 남김.
+          writeTouchUpCsv(position.first, position.second, false);
+        }
+        isDragged = false;
+        break;
       case MotionEvent.ACTION_MOVE:
         if (panelState == SlidingUpPanelLayout.PanelState.DRAGGING) {
+          isDragged = true;
           // Success case.
           // CSV에 성공 기록을 남김.
           writeDragCsv(dragCounter, touchCounter, position.first, position.second);
@@ -197,6 +204,7 @@ public class SlideNotiActivity extends AppCompatActivity implements
       case MotionEvent.ACTION_UP:
         touchCounter = 0;
         dragCounter++;
+        isDragged = false;
     }
     return false;
   }
