@@ -1,6 +1,7 @@
 package totoro.project.interaction.interactiontestproject.csv;
 
 import android.content.Context;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import com.opencsv.CSVWriter;
@@ -16,7 +17,8 @@ public class CsvManager {
   private CSVWriter writer;
 
   public void createCsvWriter(Context context, String[] directories, String fileName, String[] columns) {
-    File csvFile = createFileWithDirectory(context.getFilesDir(), directories, fileName);
+    System.out.println("External storage: " + context.getExternalCacheDir());
+    File csvFile = createFileWithDirectory(context.getExternalCacheDir(), directories, fileName);
     writer = createCsvWriter(csvFile);
     writer.writeNext(columns);
   }
@@ -46,9 +48,9 @@ public class CsvManager {
   }
 
   private static File createDirectory(@NonNull File basePath, @NonNull String[] directories) {
-    String filePath = File.separator;
+    String filePath = "";
     for (String directoryName : directories) {
-      filePath = filePath + directoryName + File.separator;
+      filePath = directoryName + File.separator;
     }
     return new File(basePath, filePath);
   }
@@ -56,11 +58,15 @@ public class CsvManager {
   private static File createFileWithDirectory(@NonNull File basePath, @NonNull String[] directories,
                                               @NonNull String fileName) {
     File directory = createDirectory(basePath, directories);
+    System.out.println("directory path: " + directory);
     // Directory가 필요하면 생성함.
-    directory.mkdirs();
+    System.out.println("result: " + directory.mkdirs());
     File csvFile = new File(directory, fileName);
+    System.out.println("csv file: " + csvFile);
     try {
-      csvFile.createNewFile();
+      if (!csvFile.exists()) {
+        csvFile.createNewFile();
+      }
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
