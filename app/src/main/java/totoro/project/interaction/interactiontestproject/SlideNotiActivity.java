@@ -182,12 +182,6 @@ public class SlideNotiActivity extends AppCompatActivity implements
 
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
-        if (isDragged) {
-          // CSV에 실패 기록을 남김.
-          writeTouchUpCsv(position.first, position.second, false);
-        }
-        isDragged = false;
-        break;
       case MotionEvent.ACTION_MOVE:
         if (panelState == SlidingUpPanelLayout.PanelState.DRAGGING) {
           isDragged = true;
@@ -204,6 +198,11 @@ public class SlideNotiActivity extends AppCompatActivity implements
       case MotionEvent.ACTION_UP:
         touchCounter = 0;
         dragCounter++;
+        if (isDragged) {
+          // CSV에 실패 기록을 남김.
+          System.out.println("noti bar failed: " + position.first + ", " + position.second);
+          writeTouchUpCsv(position.first, position.second, false);
+        }
         isDragged = false;
     }
     return false;
