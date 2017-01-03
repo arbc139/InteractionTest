@@ -73,7 +73,6 @@ public class PointActivity extends AppCompatActivity implements
       "델타 y",
       "타겟 중심에서 실제 터치 중심까지 거리 (B)",
       "홈버튼 중심에서 실제 터치 중심까지 거리 (C)",
-      "실제 터치 IDe",
       "터치 성공까지 걸린 시간",
   };
 
@@ -324,7 +323,6 @@ public class PointActivity extends AppCompatActivity implements
     "델타 y",
     "타겟 중심에서 실제 터치 중심까지 거리 (B)",
     "홈버튼 중심에서 실제 터치 중심까지 거리 (C)",
-    "실제 터치 IDe",
     "터치 성공까지 걸린 시간",
    */
   private void writeCsv(int count,
@@ -360,7 +358,7 @@ public class PointActivity extends AppCompatActivity implements
             targetCenter.second, screenSize.second, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(
             Double.valueOf(homeTargetDistance).floatValue(), getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeter(testButtonSize * 2, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(testButtonSize, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(testButtonRadius, getResources().getDisplayMetrics())),
         String.valueOf(testButtonDegree),
         String.valueOf(targetId),
@@ -369,10 +367,8 @@ public class PointActivity extends AppCompatActivity implements
             touchX, screenSize.first, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeterCsvCoordinate(
             touchY, screenSize.second, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            deltaX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            deltaY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(deltaX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(deltaY, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(
             Double.valueOf(targetTouchDistance).floatValue(), getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(

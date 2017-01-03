@@ -22,6 +22,18 @@ public class CommonUtil {
         centerPosition.first - buttonSize / 2, centerPosition.second - buttonSize / 2);
   }
 
+  public static Pair<Float, Float> toOriginalCsvCoorPosition(Pair<Float, Float> centerPosition,
+                                                                 float buttonSize) {
+    return Pair.create(
+        centerPosition.first + buttonSize / 2, centerPosition.second + buttonSize / 2);
+  }
+
+  public static Pair<Float, Float> toCenterCsvCoorPosition(Pair<Float, Float> centerPosition,
+                                                           float buttonSize) {
+    return Pair.create(
+        centerPosition.first - buttonSize / 2, centerPosition.second - buttonSize / 2);
+  }
+
   @Deprecated
   public static Pair<Integer, Integer> getPosition(View view) {
     RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();

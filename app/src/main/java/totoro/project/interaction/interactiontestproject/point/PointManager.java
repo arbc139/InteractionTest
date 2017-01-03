@@ -48,7 +48,7 @@ public class PointManager {
   }
 
   public double getTargetId(int buttonSize, double homeTargetDistance) {
-    return Math.log(buttonSize / homeTargetDistance) / Math.log(2);
+    return Math.log(buttonSize / Math.abs(homeTargetDistance)) / Math.log(2);
   }
 
   @Nullable
