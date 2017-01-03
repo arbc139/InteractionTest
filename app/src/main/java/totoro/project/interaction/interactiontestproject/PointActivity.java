@@ -73,6 +73,7 @@ public class PointActivity extends AppCompatActivity implements
       "델타 y",
       "타겟 중심에서 실제 터치 중심까지 거리 (B)",
       "홈버튼 중심에서 실제 터치 중심까지 거리 (C)",
+      "dx",
       "터치 성공까지 걸린 시간",
   };
 
@@ -323,6 +324,7 @@ public class PointActivity extends AppCompatActivity implements
     "델타 y",
     "타겟 중심에서 실제 터치 중심까지 거리 (B)",
     "홈버튼 중심에서 실제 터치 중심까지 거리 (C)",
+    "dx",
     "터치 성공까지 걸린 시간",
    */
   private void writeCsv(int count,
@@ -331,6 +333,7 @@ public class PointActivity extends AppCompatActivity implements
                         /* int targetDiameter, int buttonRadius, int buttonDegree, */
                         /* double targetId, */ boolean success, int touchX, int touchY,
                         /* int deltaX, int deltaY, int targetTouchDistance, int homeTouchDistance,*/
+                        /* int dx,*/
                         long elapsedTimeMillis) {
     Pair<Integer, Integer> targetCenter = CommonUtil.toCenterPosition(
         Pair.create(targetX, targetY), testButtonSize);
@@ -338,12 +341,13 @@ public class PointActivity extends AppCompatActivity implements
         Pair.create(testBasePointX, testBasePointY), testButtonSize);
     Pair<Integer, Integer> touch = Pair.create(touchX, touchY);
 
-    double homeTargetDistance = CommonUtil.getDistance(homeCenter, targetCenter);
-    double targetTouchDistance = CommonUtil.getDistance(targetCenter, touch);
-    double homeTouchDistance = CommonUtil.getDistance(homeCenter, touch);
+    double homeTargetDistance = CommonUtil.getDistance(homeCenter, targetCenter); // A
+    double targetTouchDistance = CommonUtil.getDistance(targetCenter, touch); // B
+    double homeTouchDistance = CommonUtil.getDistance(homeCenter, touch); // C
     int deltaX = touchX - targetCenter.first;
     int deltaY = touchY - targetCenter.second;
     double targetId = pointManager.getTargetId(testButtonSize, homeTargetDistance);
+    double dx = (Math.pow(homeTouchDistance, 2) - Math.pow(targetTouchDistance, 2) - Math.pow(homeTargetDistance, 2)) / (2 * homeTargetDistance);
 
     csvManager.write(new String[] {
         String.valueOf(count),
@@ -373,6 +377,7 @@ public class PointActivity extends AppCompatActivity implements
             Double.valueOf(targetTouchDistance).floatValue(), getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(
             Double.valueOf(homeTouchDistance).floatValue(), getResources().getDisplayMetrics())),
+        String.valueOf(dx),
         String.format(Locale.KOREA, "%dms", elapsedTimeMillis),
     });
   }

@@ -78,8 +78,9 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/noti_bar_height"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/ic_expand_less_white_24dp"
+                        android:layout_marginBottom="@dimen/noti_bar_height"
                         android:tint="@color/background_quinary"/>
 
                     <LinearLayout
