@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class CommonUtil {
 
@@ -93,7 +94,7 @@ public class CommonUtil {
   }
 
   public static String formattedDate(Date date) {
-    SimpleDateFormat formatter = new SimpleDateFormat("(yyyy년_MM월_dd일_hh:mm:ss)");
+    SimpleDateFormat formatter = new SimpleDateFormat("(yyyy_MM_dd_hh-mm-ss)", Locale.KOREA);
     return formatter.format(date);
   }
 
