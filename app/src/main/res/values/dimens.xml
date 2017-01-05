@@ -19,7 +19,7 @@
     <dimen name="swipe_button_size">0.196in</dimen>
     <dimen name="base_scale">0.196in</dimen>
     <!-- Slide noti activity -->
-    <dimen name="noti_bar_height">100dp</dimen>
+    <dimen name="noti_bar_height">5mm</dimen>
     <dimen name="noti_bar_shadow">4dp</dimen>
     <dimen name="noti_bar_option_button_size">40dp</dimen>
     <!-- Main activity -->
