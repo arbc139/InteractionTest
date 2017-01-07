@@ -14,6 +14,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/setting_button"
+                    android:layout_width="@dimen/common_button_height"
+                    android:layout_height="@dimen/common_button_height"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_settings_black_24dp"
+                        android:tint="@color/background_quinary"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/common_margin_middle"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -249,29 +271,6 @@
                         android:background="?selectableItemBackground"
                         android:text="@string/next_step_button"/>
                 </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/common_margin_long">
-
-                <LinearLayout
-                    android:id="@+id/setting_button"
-                    android:layout_width="@dimen/common_button_height"
-                    android:layout_height="@dimen/common_button_height"
-                    android:background="?selectableItemBackgroundBorderless"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_settings_black_24dp"
-                        android:tint="@color/background_quinary"/>
-                </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
