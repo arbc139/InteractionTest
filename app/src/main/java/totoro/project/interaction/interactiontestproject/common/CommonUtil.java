@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import totoro.project.interaction.interactiontestproject.R;
+
 public class CommonUtil {
 
   public static Pair<Integer, Integer> toCenterPosition(Pair<Integer, Integer> position,
@@ -67,7 +69,7 @@ public class CommonUtil {
   }
 
   private static int getRecursiveLeft(View view) {
-    if (view.getParent() == view.getRootView())
+    if (view.getId() == R.id.main_layout || view.getParent() == view.getRootView())
       return view.getLeft();
     else
       return view.getLeft() + getRecursiveLeft((View) view.getParent());
@@ -84,6 +86,20 @@ public class CommonUtil {
     return Math.sqrt(
         Math.pow(positionA.first - positionB.first, 2) + Math.pow(positionA.second - positionB.second, 2));
   }
+
+
+  public static boolean isClickedInCircle(Pair<Integer, Integer> centerPosition,
+                                          Pair<Integer, Integer> touchPosition, int buttonSize) {
+    System.out.println("isClickedInCircle center: " + centerPosition.first + ", " + centerPosition.second);
+    System.out.println("isClickedInCircle touch: " + touchPosition.first + ", " + touchPosition.second);
+    System.out.println("isClickedInCircle distance, radius: " + getDistance(centerPosition, touchPosition) + ", " + buttonSize / 2);
+    if (getDistance(centerPosition, touchPosition) <= (buttonSize / 2)) {
+      return true;
+    } else{
+      return false;
+    }
+  }
+
 
   public static float toPixel(float millimeter, DisplayMetrics metrics) {
     return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_MM, millimeter, metrics);

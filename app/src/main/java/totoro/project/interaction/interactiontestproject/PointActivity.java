@@ -23,7 +23,11 @@ import totoro.project.interaction.interactiontestproject.timer.Timer;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.changePosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getDistance;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPositionLegacy;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.isClickedInCircle;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toCenterPosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeter;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
@@ -241,11 +245,15 @@ public class PointActivity extends AppCompatActivity implements
   }
 
   private void handleClickBaseButton(Pair<Integer, Integer> nestPosition) {
-    Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
+    Pair<Integer, Integer> measuredPosition = getMeasuredPositionLegacy(
         binding.baseButtonLayout, nestPosition);
+    Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+    if (!isClickedInCircle(toCenterPosition(buttonPosition, testButtonSize), measuredPosition, testButtonSize)) {
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      return;
+    }
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
     // CSV에 성공여부를 입력.
-    Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
     writeCsv(
         pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
         buttonPosition.second, true, measuredPosition.first,
@@ -263,11 +271,15 @@ public class PointActivity extends AppCompatActivity implements
   }
 
   private void handleClickTargetButton(Pair<Integer, Integer> nestPosition) {
-    Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
+    Pair<Integer, Integer> measuredPosition = getMeasuredPositionLegacy(
         binding.targetButtonLayout, nestPosition);
-    System.out.println("Target button click: " + measuredPosition.first + ", " + measuredPosition.second);
-    // CSV에 성공여부를 입력.
     Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+    if (!isClickedInCircle(toCenterPosition(buttonPosition, testButtonSize), measuredPosition, testButtonSize)) {
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      return;
+    }
+    // CSV에 성공여부를 입력.
+    System.out.println("Target button click: " + measuredPosition.first + ", " + measuredPosition.second);
     writeCsv(
         pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
         buttonPosition.second, true, measuredPosition.first,

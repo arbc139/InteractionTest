@@ -26,6 +26,7 @@ import static android.view.View.VISIBLE;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.changePosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPositionLegacy;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getPosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.isClickedInCircle;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toCenterPosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
@@ -236,6 +237,10 @@ public class SwipeActivity extends AppCompatActivity implements
     Pair<Integer, Integer> measuredPosition = getMeasuredPositionLegacy(
         binding.baseButton, nestPosition);
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
+    if (!isClickedInCircle(toCenterPosition(manager.getCurrentPosition(), testButtonSize), measuredPosition, testButtonSize)) {
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      return;
+    }
     Pair<Integer, Integer> touchPosition = toTouchPosition(measuredPosition, testButtonSize);
     changePosition(binding.baseButton, touchPosition.first, touchPosition.second);
   }
