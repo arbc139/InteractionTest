@@ -153,7 +153,7 @@ public class BeforeTest2Activity extends AppCompatActivity
   }
 
   private void clickBaseButton(Pair<Integer, Integer> nestPosition) {
-    Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
+    Pair<Integer, Integer> measuredPosition = getMeasuredPositionLegacy(
         binding.targetButton, nestPosition);
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
     Pair<Integer, Integer> touchPosition = toTouchPosition(measuredPosition, testButtonSize);
@@ -161,7 +161,7 @@ public class BeforeTest2Activity extends AppCompatActivity
   }
 
   private void moveBaseButton(Pair<Integer, Integer> nestPosition) {
-    Pair<Integer, Integer> measuredPosition = getMeasuredPosition(
+    Pair<Integer, Integer> measuredPosition = getMeasuredPositionLegacy(
         binding.targetButton, nestPosition);
     System.out.println("Base button move: " + measuredPosition.first + ", " + measuredPosition.second);
     Pair<Integer, Integer> touchPosition = toTouchPosition(measuredPosition, testButtonSize);
