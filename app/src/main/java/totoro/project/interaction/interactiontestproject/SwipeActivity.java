@@ -24,6 +24,7 @@ import totoro.project.interaction.interactiontestproject.timer.Timer;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.changePosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getDistance;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPositionLegacy;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getPosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.isClickedInCircle;
@@ -238,7 +239,8 @@ public class SwipeActivity extends AppCompatActivity implements
         binding.baseButton, nestPosition);
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
     if (!isClickedInCircle(toCenterPosition(manager.getCurrentPosition(), testButtonSize), measuredPosition, testButtonSize)) {
-      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      double distance = getDistance(toCenterPosition(manager.getCurrentPosition(), testButtonSize), measuredPosition);
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second + ", " + distance);
       return;
     }
     Pair<Integer, Integer> touchPosition = toTouchPosition(measuredPosition, testButtonSize);

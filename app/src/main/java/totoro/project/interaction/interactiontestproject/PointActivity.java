@@ -56,6 +56,8 @@ public class PointActivity extends AppCompatActivity implements
   private int testButtonRadius = 50;
   private int testMaxCount = 50;
 
+  private boolean isTesting = false;
+
   private final String[] csvColumns = new String[] {
       "횟수 번호",
       "피험자 번호",
@@ -148,6 +150,7 @@ public class PointActivity extends AppCompatActivity implements
     changePosition(
         binding.targetButtonLayout, firstTargetPosition.first, firstTargetPosition.second);
 
+    binding.mainLayout.setOnTouchListener(this);
     binding.baseButtonLayout.setOnTouchListener(this);
     binding.targetButtonLayout.setOnTouchListener(this);
     binding.nextButton.setOnClickListener(this);
@@ -180,15 +183,22 @@ public class PointActivity extends AppCompatActivity implements
         csvColumns);
   }
 
-  @Override
-  public boolean onTouchEvent(MotionEvent event) {
+  public boolean handleClickMainLayout(MotionEvent event) {
+    if (!isTesting) {
+      return false;
+    }
     int x = (int) event.getX();
     int y = (int) event.getY();
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
         // CSV에 오류를 입력.
         System.out.println("Touched " + x + ", " + y);
+        Pair<Integer, Integer> targetCenter = toCenterPosition(pointManager.getCurrentPoint(), testButtonSize);
+        System.out.println("Target center: " + targetCenter.first + ", " + targetCenter.second);
+
         Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
+        double distance = toMillimeter((float) getDistance(toCenterPosition(buttonPosition, testButtonSize), Pair.create(x, y)), getResources().getDisplayMetrics());
+        System.out.println("distance: " + distance);
         writeCsv(
             pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
             buttonPosition.second, false, x, y, timer.elapse(false));
@@ -205,6 +215,9 @@ public class PointActivity extends AppCompatActivity implements
     }
     Pair<Integer, Integer> nestPosition = Pair.create((int) event.getX(), (int) event.getY());
     switch (view.getId()) {
+      case R.id.main_layout:
+        handleClickMainLayout(event);
+        return true;
       case R.id.base_button_layout:
         handleClickBaseButton(nestPosition);
         return true;
@@ -242,6 +255,7 @@ public class PointActivity extends AppCompatActivity implements
     binding.targetButtonLayout.setVisibility(GONE);
     validateCsvManager(getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE));
     timer.start();
+    isTesting = true;
   }
 
   private void handleClickBaseButton(Pair<Integer, Integer> nestPosition) {
@@ -249,7 +263,11 @@ public class PointActivity extends AppCompatActivity implements
         binding.baseButtonLayout, nestPosition);
     Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
     if (!isClickedInCircle(toCenterPosition(buttonPosition, testButtonSize), measuredPosition, testButtonSize)) {
-      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      double distance = toMillimeter((float) getDistance(toCenterPosition(buttonPosition, testButtonSize), measuredPosition), getResources().getDisplayMetrics());
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second + ", " + distance);
+      writeCsv(
+          pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
+          buttonPosition.second, false, measuredPosition.first, measuredPosition.second, timer.elapse(false));
       return;
     }
     System.out.println("Base button click: " + measuredPosition.first + ", " + measuredPosition.second);
@@ -275,7 +293,11 @@ public class PointActivity extends AppCompatActivity implements
         binding.targetButtonLayout, nestPosition);
     Pair<Integer, Integer> buttonPosition = getCurrentShowButtonPosition();
     if (!isClickedInCircle(toCenterPosition(buttonPosition, testButtonSize), measuredPosition, testButtonSize)) {
-      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second);
+      double distance = toMillimeter((float) getDistance(toCenterPosition(buttonPosition, testButtonSize), measuredPosition), getResources().getDisplayMetrics());
+      System.out.println("Out of circle: " + measuredPosition.first + ", " + measuredPosition.second + ", " + distance);
+      writeCsv(
+          pointManager.getCount(), pointManager.getTargetNumber(), buttonPosition.first,
+          buttonPosition.second, false, measuredPosition.first, measuredPosition.second, timer.elapse(false));
       return;
     }
     // CSV에 성공여부를 입력.
@@ -305,6 +327,7 @@ public class PointActivity extends AppCompatActivity implements
     binding.nextButton.setText(R.string.back_button);
 
     csvManager.clear();
+    isTesting = false;
   }
 
   private Pair<Integer, Integer> getCurrentShowButtonPosition() {
