@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InteractionTestProject</string>
+    <string name="app_name">IDL test 2</string>
     <!-- Common -->
     <string name="next_step_button">다음</string>
     <string name="save_button">저장</string>
