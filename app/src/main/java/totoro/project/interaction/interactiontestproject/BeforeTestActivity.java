@@ -18,6 +18,7 @@ import totoro.project.interaction.interactiontestproject.databinding.BeforeTestA
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
 public class BeforeTestActivity extends AppCompatActivity
     implements View.OnClickListener, View.OnTouchListener {
@@ -159,14 +160,17 @@ public class BeforeTestActivity extends AppCompatActivity
   }
 
   /*
+    "횟수",
     "터치 x 좌표",
     "터치 y 좌표",
    */
   private void writeCsv(int count, int touchX, int touchY) {
     csvManager.write(new String[] {
         String.valueOf(count),
-        String.valueOf(touchX),
-        String.valueOf(touchY),
+        String.valueOf(toMillimeterCsvCoordinate(
+            touchX, screenSize.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeterCsvCoordinate(
+            touchY, screenSize.second, getResources().getDisplayMetrics())),
     });
   }
 }
