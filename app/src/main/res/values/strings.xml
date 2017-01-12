@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IDL test 2</string>
+    <string name="app_name">IDL test 3</string>
     <!-- Common -->
     <string name="next_step_button">다음</string>
     <string name="save_button">저장</string>
@@ -30,10 +30,10 @@
     <!-- Setting -->
     <string name="setting_screen_hide_height">가릴 영역 높이 (mm)</string>
     <string name="setting_before_test_count">테스트  횟수</string>
-    <string name="setting_before_test_2_target_x">타겟 버튼 X (오른쪽 아래 기준 mm)</string>
-    <string name="setting_before_test_2_target_y">타겟 버튼 Y (오른쪽 아래 기준 mm)</string>
-    <string name="setting_a_base_x">홈버튼 X (오른쪽 아래 기준 mm)</string>
-    <string name="setting_a_base_y">홈버튼 Y (오른쪽 아래 기준 mm)</string>
+    <string name="setting_before_test_2_target_x">타겟 버튼 X (왼쪽 위 기준 mm)</string>
+    <string name="setting_before_test_2_target_y">타겟 버튼 Y (왼쪽 위 기준 mm)</string>
+    <string name="setting_a_base_x">홈버튼 X (왼쪽 위 기준 mm)</string>
+    <string name="setting_a_base_y">홈버튼 Y (왼쪽 위 기준 mm)</string>
     <string name="setting_a_button_size">버튼 사이즈 (mm)</string>
     <string name="setting_a_button_radius">버튼 사이의 간격 (mm)</string>
     <string name="setting_a_button_degree">각도 (°)</string>

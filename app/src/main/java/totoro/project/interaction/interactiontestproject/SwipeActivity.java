@@ -29,6 +29,7 @@ import static totoro.project.interaction.interactiontestproject.common.CommonUti
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getPosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.isClickedInCircle;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toCenterPosition;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeter;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
 public class SwipeActivity extends AppCompatActivity implements
@@ -329,10 +330,8 @@ public class SwipeActivity extends AppCompatActivity implements
     dragCsvManager.write(new String[] {
         String.valueOf(dragCount),
         String.valueOf(touchCount),
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(dragX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(dragY, getResources().getDisplayMetrics())),
     });
   }
 
@@ -346,10 +345,8 @@ public class SwipeActivity extends AppCompatActivity implements
     Pair<Integer, Integer> targetCenter = CommonUtil.toCenterPosition(
         Pair.create(targetX, targetY), testButtonSize);
     touchUpCsvManager.write(new String[] {
-        String.valueOf(toMillimeterCsvCoordinate(
-            targetCenter.first, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            targetCenter.second, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(targetCenter.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(targetCenter.second, getResources().getDisplayMetrics())),
         success ? "SUCCESS" : "FAILED",
         String.format(Locale.KOREA, "%dms", elapsedTimeMillis),
     });

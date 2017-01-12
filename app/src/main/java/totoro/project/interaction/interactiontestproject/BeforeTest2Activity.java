@@ -22,6 +22,7 @@ import static android.view.View.VISIBLE;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.changePosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPosition;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.getMeasuredPositionLegacy;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeter;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
 public class BeforeTest2Activity extends AppCompatActivity
@@ -77,9 +78,6 @@ public class BeforeTest2Activity extends AppCompatActivity
         System.out.println("content width, height: " + content.getMeasuredWidth() + ", " + content.getMeasuredHeight());
         System.out.println("MainLayout width, height: " + mainLayout.getMeasuredWidth() + ", " + mainLayout.getMeasuredHeight());
         screenSize = Pair.create(mainLayout.getMeasuredWidth(), content.getMeasuredHeight() - screenHideHeight);
-        // Workaround.
-        testTargetX = screenSize.first - testTargetX;
-        testTargetY = screenSize.second - testTargetY;
         initViews();
       }
     });
@@ -210,10 +208,8 @@ public class BeforeTest2Activity extends AppCompatActivity
   */
   private void writeCsv(int dragX, int dragY) {
     csvManager.write(new String[] {
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(dragX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(dragY, getResources().getDisplayMetrics())),
     });
   }
 }

@@ -18,9 +18,20 @@ public class CommonUtil {
                                                         int buttonSize) {
     return Pair.create(position.first + buttonSize / 2, position.second + buttonSize / 2);
   }
+
+  public static Pair<Float, Float> toCenterPosition(Pair<Float, Float> position,
+                                                    float buttonSize) {
+    return Pair.create(position.first + buttonSize / 2, position.second + buttonSize / 2);
+  }
   
   public static Pair<Integer, Integer> toOriginalPosition(Pair<Integer, Integer> centerPosition,
                                                           int buttonSize) {
+    return Pair.create(
+        centerPosition.first - buttonSize / 2, centerPosition.second - buttonSize / 2);
+  }
+
+  public static Pair<Float, Float> toOriginalPosition(Pair<Float, Float> centerPosition,
+                                                      float buttonSize) {
     return Pair.create(
         centerPosition.first - buttonSize / 2, centerPosition.second - buttonSize / 2);
   }

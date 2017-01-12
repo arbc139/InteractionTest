@@ -111,9 +111,6 @@ public class PointActivity extends AppCompatActivity implements
         System.out.println("content width, height: " + content.getMeasuredWidth() + ", " + content.getMeasuredHeight());
         System.out.println("MainLayout width, height: " + mainLayout.getMeasuredWidth() + ", " + mainLayout.getMeasuredHeight());
         screenSize = Pair.create(mainLayout.getMeasuredWidth(), content.getMeasuredHeight() - screenHideHeight);
-        // Workaround.
-        testBasePointX = screenSize.first - testBasePointX;
-        testBasePointY = screenSize.second - testBasePointY;
         initViews();
       }
     });
@@ -391,10 +388,10 @@ public class PointActivity extends AppCompatActivity implements
         postureType,
         handType,
         targetNumber,
-        String.valueOf(toMillimeterCsvCoordinate(
-            targetCenter.first, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            targetCenter.second, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            targetCenter.first, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            targetCenter.second, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(
             Double.valueOf(homeTargetDistance).floatValue(), getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(testButtonSize, getResources().getDisplayMetrics())),
@@ -402,10 +399,10 @@ public class PointActivity extends AppCompatActivity implements
         String.valueOf(testButtonDegree),
         String.valueOf(targetId),
         success ? "SUCCESS" : "FAILED",
-        String.valueOf(toMillimeterCsvCoordinate(
-            touchX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            touchY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            touchX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            touchY, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(deltaX, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(deltaY, getResources().getDisplayMetrics())),
         String.valueOf(toMillimeter(

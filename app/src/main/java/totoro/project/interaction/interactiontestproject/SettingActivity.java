@@ -115,7 +115,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
 
     editor.putInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, Integer.valueOf(beforeTestCount));
 
-    Pair<Float, Float> originalBeforeTest2TargetPosition = CommonUtil.toOriginalCsvCoorPosition(
+    Pair<Float, Float> originalBeforeTest2TargetPosition = CommonUtil.toOriginalPosition(
         Pair.create(
             CommonUtil.toPixel(Float.valueOf(beforeTest2TargetX), getResources().getDisplayMetrics()),
             CommonUtil.toPixel(Float.valueOf(beforeTest2TargetY), getResources().getDisplayMetrics())),
@@ -129,7 +129,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         CommonUtil.toPixel(Float.valueOf(beforeTest2ButtonSize), getResources().getDisplayMetrics()));
     System.out.println("SHARED_PREFERENCES beforeTest2ButtonSize: " + getSharedPreferences(KeyMap.SHARED_PREFERENCES_ROOT, MODE_PRIVATE).getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_BUTTON_SIZE, 0));
 
-    Pair<Float, Float> originalABasePosition = CommonUtil.toOriginalCsvCoorPosition(
+    Pair<Float, Float> originalABasePosition = CommonUtil.toOriginalPosition(
         Pair.create(
             CommonUtil.toPixel(Float.valueOf(aBaseX), getResources().getDisplayMetrics()),
             CommonUtil.toPixel(Float.valueOf(aBaseY), getResources().getDisplayMetrics())),
@@ -197,7 +197,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
         sharedPreferences.getInt(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_COUNT, 0));
     binding.beforeTestCount.setText(String.valueOf(beforeTestCount));
 
-    Pair<Float, Float> centerBeforeTest2TargetPosition = CommonUtil.toCenterCsvCoorPosition(
+    Pair<Float, Float> centerBeforeTest2TargetPosition = CommonUtil.toCenterPosition(
         Pair.create(
             sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_X, 0),
             sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_BEFORE_TEST_2_TARGET_Y, 0)),
@@ -213,7 +213,7 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
     binding.beforeTest2ButtonSize.setText(beforeTest2ButtonSize);
     System.out.println("validate beforeTest2ButtonSize: " + beforeTest2ButtonSize);
 
-    Pair<Float, Float> centerBasePosition = CommonUtil.toCenterCsvCoorPosition(
+    Pair<Float, Float> centerBasePosition = CommonUtil.toCenterPosition(
         Pair.create(
             sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_X, 0),
             sharedPreferences.getFloat(KeyMap.SHARED_PREFERENCES_SETTING_A_BASE_Y, 0)),

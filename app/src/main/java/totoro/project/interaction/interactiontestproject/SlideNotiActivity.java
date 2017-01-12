@@ -24,6 +24,7 @@ import totoro.project.interaction.interactiontestproject.databinding.SlideNotiAc
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeter;
 import static totoro.project.interaction.interactiontestproject.common.CommonUtil.toMillimeterCsvCoordinate;
 
 public class SlideNotiActivity extends AppCompatActivity implements
@@ -262,10 +263,10 @@ public class SlideNotiActivity extends AppCompatActivity implements
     dragCsvManager.write(new String[] {
         String.valueOf(dragCount),
         String.valueOf(touchCount),
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            dragY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            dragX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            dragY, getResources().getDisplayMetrics())),
     });
   }
 
@@ -276,10 +277,10 @@ public class SlideNotiActivity extends AppCompatActivity implements
   */
   private void writeTouchUpCsv(int touchX, int touchY, boolean success) {
     touchUpCsvManager.write(new String[] {
-        String.valueOf(toMillimeterCsvCoordinate(
-            touchX, screenSize.first, getResources().getDisplayMetrics())),
-        String.valueOf(toMillimeterCsvCoordinate(
-            touchY, screenSize.second, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            touchX, getResources().getDisplayMetrics())),
+        String.valueOf(toMillimeter(
+            touchY, getResources().getDisplayMetrics())),
         success ? "SUCCESS" : "FAILED",
     });
   }
