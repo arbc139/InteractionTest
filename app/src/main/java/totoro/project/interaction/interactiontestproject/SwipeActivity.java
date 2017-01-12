@@ -162,7 +162,7 @@ public class SwipeActivity extends AppCompatActivity implements
   }
 
   private void validateByTestType(MainActivity.TestType testType) {
-    int swipeButtonMargin = getResources().getDimensionPixelSize(R.dimen.common_margin_short);
+    int swipeButtonMargin = screenSize.first / 4 - testButtonSize / 2;
 
     switch (testType) {
       case TEST_B:
@@ -177,7 +177,7 @@ public class SwipeActivity extends AppCompatActivity implements
         break;
       case TEST_D:
         type = SwipeType.VERTICAL;
-        testBasePointX = swipeButtonMargin;
+        testBasePointX = getResources().getDimensionPixelSize(R.dimen.common_margin_short);
         binding.instruction.setText(R.string.test_d_instruction);
         break;
       default:

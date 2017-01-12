@@ -56,7 +56,7 @@ public class SwipeManager {
     Pair<Integer, Integer> position = positions.get(count);
     switch (type) {
       case HORIZONTAL:
-        return Pair.create(screenWidth / 2 - buttonSize / 2, position.second);
+        return Pair.create(screenWidth - buttonSize - position.first, position.second);
       case VERTICAL:
         return Pair.create(position.first, screenHeight / 2 - buttonSize / 2);
       default:
